@@ -41,6 +41,24 @@ storiesOf("DayListItem", module)
     <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} />
   ));
 
+const days = [
+  {
+    id: 1,
+    name: "Monday",
+    spots: 2,
+  },
+  {
+    id: 2,
+    name: "Tuesday",
+    spots: 5,
+  },
+  {
+    id: 3,
+    name: "Wednesday",
+    spots: 0,
+  }
+];
+
 // Daylist component
 storiesOf("DayList", module)
   .addParameters({
@@ -84,7 +102,7 @@ storiesOf("InterviewerListItem", module)
         id={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
-        setInterviewer={action("setInterviewer")}
+        setInterviewer={event => action("setInterviewer")(interviewer.id)}
       />
     ));
   
@@ -111,7 +129,7 @@ storiesOf("InterviewerList", module)
   .add("Preselected", () => (
     <InterviewerList
       interviewers={interviewers}
-      interviewer={3}
+      value={3}
       setInterviewer={action("setInterviewer")}
     />
   ));

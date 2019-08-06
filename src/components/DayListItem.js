@@ -5,8 +5,8 @@ import classnames from "classnames";
 // Takes four props: name (string), spots (number), selected (bool), setDay (func which accepts names of the day)
 export default function DayListItem(props) {
   const DayListItemClass = classnames("day-list__item", {
-    "day-list__item--Selected": props.selected,
-    "day-list__item--Full": props.spots === 0
+    "day-list__item--selected": props.selected,
+    "day-list__item--full": props.spots === 0
   });
 
   let spotsRemaining = "";
