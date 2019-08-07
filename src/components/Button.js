@@ -9,17 +9,11 @@ export default function Button(props) {
      "button--disabled": props.disabled
    });
 
-   let clickEvt;
-   if (props.disabled) {
-    clickEvt = () => console.log("disabled");
-   } else {
-    clickEvt = () => props.onClick();
-   }
-
    return (
      <button
        className={buttonClass}
-       onClick={clickEvt}
+       onClick={props.onClick}
+       disabled={props.disabled}
      >
        {props.children}
      </button>
