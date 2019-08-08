@@ -1,21 +1,19 @@
-const getAppointmentsForDay = function(state, day) {
+export default function getAppointmentsForDay(state, day) {
   // state.days is an array of days
-  const aptArr;
+  let aptArr = [];
   for (let date of state.days) {
     if (date.name === day) {
-      aptArr = date.appointments;
+      aptArr.push(...date.appointments);
     }
   }
-  
-  const appointmentsArr = [];
+
+  let appointmentsArr = [];
   for (let aptObj in state.appointments) {
     for (let id of aptArr) {
-      if (id === aptObj) {
+      if (id === parseInt(aptObj)) {
         appointmentsArr.push(state.appointments[aptObj])
       }
     }
   }
   return appointmentsArr;
 }
-
-module.exports = { getAppointmentsForDay };
