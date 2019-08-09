@@ -11,9 +11,9 @@ export default function InterviewerList(props) {
     selected={props.value === interviewer.id} />);
   
   return (
-    <section class="interviewers">
-      <h4 class="interviewers__header text--light">Interviewer</h4>
-      <ul class="interviewers__list">
+    <section className="interviewers">
+      <h4 className="interviewers__header text--light">Interviewer</h4>
+      <ul className="interviewers__list">
         {InterviewerItems}
       </ul>
     </section>

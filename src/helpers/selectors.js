@@ -35,4 +35,25 @@ function getInterviewer(state, interviewer) {
   return interviewerObj;
 }
 
-export { getAppointmentsForDay, getInterviewer };
+function getInterviewersForDay(state, day) {
+  // state.days is an array of days
+  let intArr = [];
+  for (let date of state.days) {
+    if (date.name === day) {
+      intArr.push(...date.interviewers);
+    }
+  }
+
+  let interviewersArr = [];
+  for (let intObj in state.interviewers) {
+    for (let id of intArr) {
+      if (id === parseInt(intObj)) {
+        interviewersArr.push(state.interviewers[intObj])
+      }
+    }
+  }
+  
+  return interviewersArr;
+}
+
+export { getAppointmentsForDay, getInterviewer, getInterviewersForDay };

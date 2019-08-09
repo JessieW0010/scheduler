@@ -3,7 +3,7 @@ import Axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
-import {getAppointmentsForDay, getInterviewer} from "helpers/selectors"
+import {getAppointmentsForDay, getInterviewer, getInterviewersForDay} from "helpers/selectors"
 
 export default function Application(props) {
 
@@ -33,6 +33,26 @@ export default function Application(props) {
     })
   }, [])
 
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return (
+      Axios
+        .put(`http://localhost:3001/api/appointments/${id}`, {interview})
+        .then((res) => 
+          setState({
+            ...state,
+            appointments
+        })))
+  }
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -60,7 +80,10 @@ export default function Application(props) {
         {getAppointmentsForDay(state, state.day).map((appointment) =>
           <Appointment 
             key={appointment.id}
+            id={appointment.id}
             interviewInfo={getInterviewer(state, appointment.interview)}
+            interviewers={getInterviewersForDay(state, state.day)}
+            bookInterview={bookInterview}
             {...appointment}/>
         )}
       </section>
