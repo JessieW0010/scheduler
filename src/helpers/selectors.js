@@ -1,4 +1,4 @@
-export default function getAppointmentsForDay(state, day) {
+function getAppointmentsForDay(state, day) {
   // state.days is an array of days
   let aptArr = [];
   for (let date of state.days) {
@@ -15,5 +15,24 @@ export default function getAppointmentsForDay(state, day) {
       }
     }
   }
+  
   return appointmentsArr;
 }
+
+// takes state and interview id and returns interview object
+function getInterviewer(state, interviewer) {
+  let interviewerObj = {};
+  for (let int in state.interviewers) {
+    if (interviewer) {
+      if (state.interviewers[int].id == interviewer.interviewer) {
+        interviewerObj.interviewer = state.interviewers[int];
+        interviewerObj.student = interviewer.student;
+      }
+    } else {
+      return null;
+    }
+  }
+  return interviewerObj;
+}
+
+export { getAppointmentsForDay, getInterviewer };
