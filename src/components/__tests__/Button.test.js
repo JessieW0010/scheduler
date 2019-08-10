@@ -17,17 +17,17 @@ it("renders its `children` prop as text", () => {
 
 it("renders a default button style", () => {
   const { getByText } = render(<Button>Default</Button>);
-  expect(getByText("Default")).toHaveClass("button");
+  expect(getByText("Default")).toHaveclassName("button");
 });
 
 it("renders a confirm button", () => {
   const { getByText } = render(<Button confirm>Confirm</Button>);
-  expect(getByText("Confirm")).toHaveClass("button--confirm");
+  expect(getByText("Confirm")).toHaveclassName("button--confirm");
 });
 
 it("renders a danger button", () => {
   const { getByText } = render(<Button danger>Danger</Button>);
-  expect(getByText("Danger")).toHaveClass("button--danger");
+  expect(getByText("Danger")).toHaveclassName("button--danger");
 });
 
 it("renders a clickable button", () => {
