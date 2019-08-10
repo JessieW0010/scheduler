@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import Axios from "axios";
 
 /* 
@@ -11,18 +11,36 @@ import Axios from "axios";
 */
 
 export default function useApplicationData() {
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {}, 
     interviewers:{}
   });
   
-  const setDay = day => setState(prev => ({ ...prev, day }));
-  const setDays = days => setState(prev => ({ ...prev, days }));
-  const setAppointments = appointments => setState(prev => ({ ...prev, appointments}));
-  const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers}));
-  
+  const SET_DAY = "SET_DAY";
+  const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+  const SET_INTERVIEW = "SET_INTERVIEW";
+
+  const setDay = day => dispatch({ type: SET_DAY, day });
+  const setApplicationData = (days, appointments, interviewers) => dispatch({ type: SET_APPLICATION_DATA, days, appointments, interviewers});
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "SET_DAY":
+        return {...state, day: action.day}
+      case "SET_APPLICATION_DATA":
+        return {...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers}
+      case "SET_INTERVIEW": {
+        return {...state, appointment: action.appointments}
+      }
+      default:
+        throw new Error(
+          `Tried to reduce with unsupported action type: ${action.type}`
+        );
+    }
+  }
+
   useEffect(() => {
     Promise
     .all([
@@ -31,11 +49,9 @@ export default function useApplicationData() {
       Axios.get("http://localhost:3001/api/interviewers")
     ])
     .then((res) => {
-      setDays(res[0].data)
-      setAppointments(res[1].data)
-      setInterviewers(res[2].data)
+      setApplicationData(res[0].data, res[1].data, res[2].data)
     })
-  }, [])
+  }, [state])
   
   function bookInterview(id, interview) {
     const appointment = {
@@ -51,8 +67,8 @@ export default function useApplicationData() {
       Axios
         .put(`http://localhost:3001/api/appointments/${id}`, {interview})
         .then((res) => 
-          setState({
-            ...state,
+          dispatch({
+            type: SET_INTERVIEW,
             appointments
         })))
   }
@@ -70,8 +86,8 @@ export default function useApplicationData() {
       Axios
         .delete(`http://localhost:3001/api/appointments/${id}`)
         .then((res) => 
-          setState({
-            ...state,
+          dispatch({
+            type: SET_INTERVIEW,
             appointments
         })))
   }
@@ -90,8 +106,8 @@ export default function useApplicationData() {
       Axios
         .put(`http://localhost:3001/api/appointments/${id}`, {interview})
         .then((res) => 
-          setState({
-            ...state,
+          dispatch({
+            type: SET_INTERVIEW,
             appointments
         })))
   }
