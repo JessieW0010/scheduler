@@ -53,6 +53,45 @@ export default function Application(props) {
         })))
   }
 
+  function deleteInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return (
+      Axios
+        .delete(`http://localhost:3001/api/appointments/${id}`)
+        .then((res) => 
+          setState({
+            ...state,
+            appointments
+        })))
+  }
+
+  function editInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return (
+      Axios
+        .put(`http://localhost:3001/api/appointments/${id}`, {interview})
+        .then((res) => 
+          setState({
+            ...state,
+            appointments
+        })))
+  }
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -84,6 +123,8 @@ export default function Application(props) {
             interviewInfo={getInterviewer(state, appointment.interview)}
             interviewers={getInterviewersForDay(state, state.day)}
             bookInterview={bookInterview}
+            deleteInterview={deleteInterview}
+            editInterview={editInterview}
             {...appointment}/>
         )}
       </section>
