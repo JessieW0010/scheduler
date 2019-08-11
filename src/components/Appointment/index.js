@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "components/Appointment/styles.scss";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
@@ -43,6 +43,16 @@ export default function Appointment(props) {
     props.editInterview(props.id, {student: name, interviewer})
       .then(() => transition(SHOW))
   }
+
+  useEffect(() => {
+    if (props.interviewInfo && mode === EMPTY) {
+     transition(SHOW);
+    }
+    if (props.interviewInfo === null && mode === SHOW) {
+     transition(EMPTY);
+    }
+    console.log("mode", mode);
+   }, [props.interviewInfo, transition, mode]);
   
   return (
     <article className="appointment">

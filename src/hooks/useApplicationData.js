@@ -1,5 +1,6 @@
 import { useReducer, useEffect } from "react";
 import Axios from "axios";
+const ENV = process.env.REACT_APP_WEBSOCKET_URL;
 
 /* 
   FUNCTION MUST RETURN THE FOLLOWING:
@@ -31,15 +32,28 @@ export default function useApplicationData() {
         return {...state, day: action.day}
       case "SET_APPLICATION_DATA":
         return {...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers}
-      case "SET_INTERVIEW": {
+      case "SET_INTERVIEW":
         return {...state, appointment: action.appointments}
-      }
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
         );
     }
   }
+
+  useEffect(() => { 
+    const ws = new WebSocket(ENV);
+    ws.addEventListener('open', () => {
+      ws.send("ping")
+    })
+    ws.addEventListener('message', (event) => {
+      console.log(JSON.parse(event.data));
+      if (JSON.parse(event.data) !== "pong") {
+        dispatch(JSON.parse(event.data))
+      }
+    })
+    return () => { ws.close(); };
+  }, [])
 
   useEffect(() => {
     Promise
@@ -51,7 +65,7 @@ export default function useApplicationData() {
     .then((res) => {
       setApplicationData(res[0].data, res[1].data, res[2].data)
     })
-  }, [state])
+  }, [])
   
   function bookInterview(id, interview) {
     const appointment = {
