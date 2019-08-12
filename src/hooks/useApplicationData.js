@@ -33,7 +33,7 @@ export default function useApplicationData() {
       case "SET_APPLICATION_DATA":
         return {...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers}
       case "SET_INTERVIEW":
-        return {...state, appointment: action.appointments}
+        return {...state, appointments: action.appointments}
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
@@ -41,19 +41,46 @@ export default function useApplicationData() {
     }
   }
 
+  // Gets the day id based on appointment id
+  // function getDay(id, days) {
+  //   for (let day of days) {
+  //     for (let apId of state.days[day]) {
+  //       if (apId === id) {
+  //         return state.days[day].id;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // Runs everytime there is a change to appointments (when user adds/ deletes an interview) and subsequently, when there is a change to the spots
   useEffect(() => { 
     const ws = new WebSocket(ENV);
     ws.addEventListener('open', () => {
-      ws.send("ping")
+      ws.send("Client connected")
     })
+
     ws.addEventListener('message', (event) => {
-      console.log(JSON.parse(event.data));
-      if (JSON.parse(event.data) !== "pong") {
-        dispatch(JSON.parse(event.data))
+      const {type, id, interview} = JSON.parse(event.data);
+      // update appointments
+      const appointment = {
+        ...state.appointments[id],
+        interview
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      };
+      const update = {
+        type, 
+        appointments
+      }
+      if (type) {
+        console.log("I'm running");
+        dispatch(update);
       }
     })
     return () => { ws.close(); };
-  }, [])
+  }, [state.appointments])
 
   useEffect(() => {
     Promise

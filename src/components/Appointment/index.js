@@ -26,8 +26,7 @@ export default function Appointment(props) {
   function save(name, interviewer) {
     transition(STATUS);
     props.bookInterview(props.id, {student: name, interviewer})
-      .then((res) => 
-        transition(SHOW))
+      .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true))
   }
 
@@ -39,20 +38,19 @@ export default function Appointment(props) {
   }
 
   function editInterview(name, interviewer) {
-    transition(EDIT);
     props.editInterview(props.id, {student: name, interviewer})
       .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_DELETE, true))
   }
 
   useEffect(() => {
     if (props.interviewInfo && mode === EMPTY) {
-     transition(SHOW);
+      transition(SHOW);
     }
     if (props.interviewInfo === null && mode === SHOW) {
-     transition(EMPTY);
+      transition(EMPTY);
     }
-    console.log("mode", mode);
-   }, [props.interviewInfo, transition, mode]);
+  }, [props.interviewInfo, transition, mode]);
   
   return (
     <article className="appointment">
