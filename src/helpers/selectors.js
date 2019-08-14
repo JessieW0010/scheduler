@@ -1,3 +1,4 @@
+// takes a state and day and returns all the appointments for that day in an array
 function getAppointmentsForDay(state, day) {
   // state.days is an array of days
   let aptArr = [];
@@ -35,6 +36,7 @@ function getInterviewer(state, interviewer) {
   return interviewerObj;
 }
 
+// takes the state and a day and gets all the interviewers for that day
 function getInterviewersForDay(state, day) {
   // state.days is an array of days
   let intArr = [];
@@ -52,7 +54,6 @@ function getInterviewersForDay(state, day) {
       }
     }
   }
-  
   return interviewersArr;
 }
 
