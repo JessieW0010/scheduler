@@ -143,11 +143,6 @@ export default function useApplicationData() {
       Axios
         .put(`http://localhost:3001/api/appointments/${id}`, {interview})
         .then((res) => {
-          if (bool) {
-            setbool(false);
-          } else {
-            setbool(true);
-          }
           dispatch({
             type: SET_INTERVIEW,
             appointments

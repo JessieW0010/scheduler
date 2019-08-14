@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 // return an object with a property mode
 export default function useVisualMode(initial) {
