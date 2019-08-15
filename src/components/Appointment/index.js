@@ -62,7 +62,7 @@ export default function Appointment(props) {
         student={props.interviewInfo ? props.interviewInfo.student:null} 
         interviewer={props.interviewInfo ? props.interviewInfo.interviewer:null}
         onDelete={() => transition(DELETE)}
-        onEdit={editInterview}
+        onEdit={() => transition(EDIT)}
       />}
       
       {mode === CREATE && 
@@ -90,7 +90,7 @@ export default function Appointment(props) {
         interviewers={props.interviewers}
         onCancel={() => back()}
         onSave={save}
-      />} 
+      />}
 
       {mode === ERROR_SAVE && 
       <Error onClose={() => transition(SHOW)} message={"Error saving"}/>} 
