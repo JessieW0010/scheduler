@@ -73,9 +73,9 @@ export default function useApplicationData() {
   useEffect(() => {
     Promise
     .all([
-      Axios.get("http://localhost:3001/api/days"),
-      Axios.get("http://localhost:3001/api/appointments"),
-      Axios.get("http://localhost:3001/api/interviewers")
+      Axios.get("/api/days"),
+      Axios.get("/api/appointments"),
+      Axios.get("/api/interviewers")
     ])
     .then((res) => {
       setApplicationData(res[0].data, res[1].data, res[2].data)
@@ -93,7 +93,7 @@ export default function useApplicationData() {
     };
     return (
       Axios
-        .put(`http://localhost:3001/api/appointments/${id}`, {interview})
+        .put(`/api/appointments/${id}`, {interview})
         .then((res) => {
           if (bool) {
             setbool(false);
@@ -117,7 +117,7 @@ export default function useApplicationData() {
     };
     return (
       Axios
-        .delete(`http://localhost:3001/api/appointments/${id}`)
+        .delete(`/api/appointments/${id}`)
         .then((res) => {
           if (bool) {
             setbool(false);
@@ -141,7 +141,7 @@ export default function useApplicationData() {
     };
     return (
       Axios
-        .put(`http://localhost:3001/api/appointments/${id}`, {interview})
+        .put(`/api/appointments/${id}`, {interview})
         .then((res) => {
           dispatch({
             type: SET_INTERVIEW,
