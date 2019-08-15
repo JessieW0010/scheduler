@@ -1,5 +1,11 @@
 # Interview Scheduler
 
+A web application built with React which allows users to book/ edit/ cancel interviews with ease!
+
+## Final Product
+
+![](public/scheduler.gif)
+
 ## Setup
 
 Install dependencies with `npm install`.
