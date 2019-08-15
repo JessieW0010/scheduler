@@ -4,7 +4,7 @@ A web application built with React which allows users to book/ edit/ cancel inte
 
 ## Final Product
 
-![](scheduler.gif)
+![](public/scheduler.gif)
 
 ## Setup
 
