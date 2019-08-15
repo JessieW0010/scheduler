@@ -1,4 +1,5 @@
 # Interview Scheduler
+[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
 
 A web application built with React which allows users to book/ edit/ cancel interviews with ease!
 
