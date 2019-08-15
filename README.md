@@ -1,5 +1,4 @@
-# Interview Scheduler
-[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
+# [Scheduler](https://interview-scheduler.netlify.com/ "interview-scheduler.com")
 
 A web application built with React which allows users to book/ edit/ cancel interviews with ease!
 
