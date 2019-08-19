@@ -7,7 +7,7 @@ A web application built with React which allows users to book/ edit/ cancel inte
 ![](public/scheduler.gif)
 
 ## Setup
-Clone the [scheduler-api server repository](https://github.com/lighthouse-labs/scheduler-api).
+Clone and set up the [scheduler-api server repository](https://github.com/lighthouse-labs/scheduler-api).
 <br/>Install dependencies with `npm install`.
 
 ## Running API Server
