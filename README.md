@@ -1,4 +1,4 @@
-# Interview Scheduler
+# [Interview-Scheduler.com](https://interview-scheduler.netlify.com/ "interview-scheduler.com")
 
 A web application built with React which allows users to book/ edit/ cancel interviews with ease!
 
